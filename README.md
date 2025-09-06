@@ -6,8 +6,6 @@ It aims to bring a similar API style and development experience into the Kotlin 
 ---
 
 ⚠️ **Disclaimer**:  
-KTTorch is an **independent open-source project** and has **no affiliation with the PyTorch Foundation, the Linux Foundation, or Meta AI**.
+KTTorch is an **independent open-source project** and has **no affiliation with Jetbrains, the PyTorch Foundation, the Linux Foundation, or Meta AI**.
 
 ---
-
-📂 **Repository**: [KTTorch on GitHub](https://github.com/KTTorch/KTTorch/tree/main)
