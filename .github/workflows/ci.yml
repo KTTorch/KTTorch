@@ -16,17 +16,29 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-#      - name: Cache Gradle packages
-#        uses: actions/cache@v4
-#        with:
-#          path: |
-#            ~/.gradle/caches
-#            ~/.gradle/wrapper
-#          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-#          restore-keys: |
-#            gradle-${{ runner.os }}-
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v3
+
+      - name: Ensure gradlew is executable
+        run: chmod +x gradlew
+
+      - name: Setup Gradle (cache & toolchain)
+        uses: gradle/actions/setup-gradle@v3
+
       - name: Build and Test
         run: ./gradlew --no-daemon clean build
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+
 #      - name: Publish
 #        run: ./gradlew publishToMavenCentral
 #        env:
