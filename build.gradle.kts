@@ -11,6 +11,9 @@ repositories {
     mavenCentral()
 }
 
+tasks.matching { it.name in setOf("assemble", "jar", "sourcesJar", "javadocJar", "publish", "publishToMavenLocal") }
+    .configureEach { enabled = false }
+
 allprojects {
     apply(plugin = "pl.allegro.tech.build.axion-release")
 
