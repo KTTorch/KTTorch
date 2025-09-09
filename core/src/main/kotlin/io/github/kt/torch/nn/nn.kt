@@ -1,6 +1,7 @@
 package io.github.kt.torch.nn
 
 import io.github.kt.torch.ndarray.NDList
+import io.github.kt.torch.ndarray.types.DataType
 import io.github.kt.torch.ndarray.types.Shape
 import io.github.kt.torch.nn.convolutional.*
 import io.github.kt.torch.nn.norm.*
@@ -15,6 +16,7 @@ import io.github.kt.torch.nn.recurrent.GRUBuilder
 import io.github.kt.torch.nn.transformer.BertBlockBuilder
 import io.github.kt.torch.tensor.*
 import io.github.kt.torch.training.loss.Loss
+import io.github.kt.torch.util.PairList
 import io.github.kt.torch.nn.core.ConstantEmbedding as ConstantEmbeddingModule
 import io.github.kt.torch.nn.core.SparseMax as SparseMaxModule
 
@@ -33,6 +35,15 @@ object nn {
     fun Swish(beta: Float): Block = Activation.swishBlock(beta)
     fun Mish(): Block = Activation.mishBlock()
     fun PreLU(): Block = Activation.preluBlock()
+
+    fun BatchFlatten(): Block =
+        Blocks.batchFlattenBlock()
+    fun BatchFlatten(size: Long): Block =
+        Blocks.batchFlattenBlock(size)
+    fun Indentiy(): Block =
+        Blocks.identityBlock()
+    fun Ones(shapes: PairList<DataType, Shape>, names: Array<String>): Block =
+        Blocks.onesBlock(shapes, names)
 
     fun Parallel(f: (List<NDList>) -> NDList, g: LayersBuilder.() -> Unit): Block {
         val b = LayersBuilder().apply(g)

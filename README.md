@@ -8,18 +8,20 @@ syntactical sugar is added to the DJL API (defaulted to the PyTorch-Engine) to m
 
 ## Examples of the API:
 ```kotlin
-val model = Model.newInstance("DQN", Devices.MPS)
-model.block = nn.Sequential {
+val inputSize = (28 * 28).toLong()
+val outputSize = 10L
+val mlp = nn.Sequential {
+    +nn.BatchFlatten(inputSize)
     +nn.Linear {
-        setUnits(10)
-        optBias(true)
+        setUnits(128)
     }
-    +nn.Conv2d {
-        setFilters(32)
-        setKernelShape(Shape(8, 8))
-        optStride(Shape(4, 4))
-        optPadding(Shape(2, 2))
-        optBias(true)
+    +nn.ReLU()
+    +nn.Linear {
+        setUnits(64)
+    }
+    +nn.ReLU()
+    +nn.Linear {
+        setUnits(outputSize)
     }
 }
 
